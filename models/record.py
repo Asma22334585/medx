@@ -3,15 +3,16 @@ from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
 from models.base_model import Base, BaseModel
 
-class Record(Base, BaseModel):
+
+class Record(BaseModel):
     """creates the medical record module"""
     __tablename__ = "records"
     id = Column(String(70), nullable=False, unique=True, primary_key=True)
     doctor_notes = Column(String(4000), nullable=True)
     diagnosis = Column(String(4000), nullable=True)
     prescription = Column(String(4000), nullable=True)
-    user_id = Column(String(50), ForeignKey('User.id'))
-    doctor_id = Column(String(50), ForeignKey('Doctor.id')) 
+    user_id = Column(String(50), ForeignKey("users.id"))
+    doctor_id = Column(String(50), ForeignKey("doctors.id")) 
 
     def __init__(self, *args, **kwargs):
         """constructor method"""

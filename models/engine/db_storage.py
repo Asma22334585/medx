@@ -21,11 +21,11 @@ class DbStorage:
 
     def __init__(self):
         """at the instantiation"""
-        MEDX_MYSQL_USER = getenv("MEDX_MYSQL_USER")
-        MEDX_MYSQL_PWD = getenv("MEDX_MYSQL_PWD")
-        MEDX_MYSQL_HOST = getenv("MEDX_MYSQL_HOST")
-        MEDX_MYSQL_DB = getenv("MEDX_MYSQL_DB")
-        self.__engine = create_engine('mysql/mysqldb://{}:{}@{}/{}'.
+        MEDX_MYSQL_USER = "medx" #getenv("MEDX_MYSQL_USER")
+        MEDX_MYSQL_PWD = "betty" #getenv("MEDX_MYSQL_PWD")
+        MEDX_MYSQL_HOST = "localhost" #getenv("MEDX_MYSQL_HOST")
+        MEDX_MYSQL_DB = "medx" #getenv("MEDX_MYSQL_DB")
+        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
                                       format(MEDX_MYSQL_USER,
                                              MEDX_MYSQL_PWD,
                                              MEDX_MYSQL_HOST,

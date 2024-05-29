@@ -5,10 +5,10 @@ from sqlalchemy.orm import relationship
 from models.base_model import Base, BaseModel
 
 
-class User(Base, BaseModel):
+class User(BaseModel):
     """user class"""
     __tablename__ = "users"
-    id = Column(String(50), nullable=False, unique=True, primary_key=True)
+    #id = Column(String(50), nullable=False, unique=True, primary_key=True)
     fullname = Column(String(50), nullable=False)
     username = Column(String(50), nullable=False, unique=True)
     password = Column(String(100), nullable=False)
@@ -23,8 +23,8 @@ class User(Base, BaseModel):
         """instantiation of obj"""
         super().__init__(*args, *kwargs)
     
-    def __setattr__(self, name, value):
+    '''def __setattr__(self, name, value):
         """hashing of password"""
         if name == "password":
             value = md5(value.encode().hexdigest())
-        super().__init__(name, value)
+        super().__init__(name, value)'''

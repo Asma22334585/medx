@@ -6,8 +6,8 @@ from sqlalchemy import ForeignKey, Column, String, Integer
 from models.base_model import Base, BaseModel
 from hashlib import md5
 
-class Doctor(Base, BaseModel):
-    __tablename__ = "DOCTOR"
+class Doctor(BaseModel):
+    __tablename__ = "doctors"
 
     username = Column(String(128), nullable=False)
     password = Column(String(128), nullable=False)
@@ -24,8 +24,8 @@ class Doctor(Base, BaseModel):
         """initializes a user"""
         super().__init__(*args, **kwargs)
     
-    def __setattr__(self, name, value):
+    '''def __setattr__(self, name, value):
         """hasshing password before saving"""
         if name == "password":
             value = md5(value.encode()).hexdigest()
-        super().__init__(name, value)
+        super().__init__(self, name, value)'''

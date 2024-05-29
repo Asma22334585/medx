@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>MedX</title>
-    <script src="https://cdn.socket.io/4.1.2/socket.io.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
 </head>
 <body>
-    <h2>Chat Room: {{ rid }}</h2>
+    <h2>Chat Room: {{ room }}</h2>
     <div id="chat">
         <div id="messages"></div>
         <input id="message" autocomplete="off"><button onclick="sendMessage()">Send</button>
@@ -17,7 +18,7 @@
         const socket = io();
 
         socket.on('connect', () => {
-            socket.emit('join', {username, rid});
+            socket.emit('join', {username, room});
         });
 
         socket.on('message', data => {
@@ -33,7 +34,7 @@
         }
 
         window.onbeforeunload = () => {
-            socket.emit('leave', {username, rid});
+            socket.emit('leave', {username, room});
         };
     </script>
 </body>

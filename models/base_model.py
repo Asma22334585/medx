@@ -10,11 +10,12 @@ timeformat = "%Y-%m-%d,%H:%M:%S"
 
 Base = declarative_base()
 
-class BaseModel:
+class BaseModel(Base):
     """
         this is the base model for every instance
     """
-    id = Column(String(50), primary_key=True, nullable=False)
+    __abstract__ = True
+    id = Column(String(50), primary_key=True, unique=True, nullable=False)
     created_at = Column(DATETIME, nullable=False)
     update_at = Column(DATETIME, nullable=False)
 
@@ -47,13 +48,21 @@ class BaseModel:
         models.storage.save()
         
     
-    def to_dict(self):
-        """ dictionary format for json conversion"""
-        new_dict = {}
-        for key, value in self.__dict__.items():
-            if isinstance(value, datetime):
-                new_dict[key] = value.isoformat()
-            else:
-                new_dict[key] = value
-        new_dict['__class__'] = self.__class__.__name__
+    def to_dict(self, save_fs=None):
+        """returns a dictionary containing all keys/values of the instance"""
+        new_dict = self.__dict__.copy()
+        if "created_at" in new_dict:
+            new_dict["created_at"] = new_dict["created_at"].strftime(timeformat)
+        if "updated_at" in new_dict:
+            new_dict["updated_at"] = new_dict["updated_at"].strftime(timeformat)
+        new_dict["__class__"] = self.__class__.__name__
+        if "_sa_instance_state" in new_dict:
+            del new_dict["_sa_instance_state"]
+        if save_fs is None:
+            if "password" in new_dict:
+                del new_dict["password"]
         return new_dict
+    
+    def delete(self):
+        """delete the current instance from the storage"""
+        models.storage.delete(self)
