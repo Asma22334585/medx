@@ -100,6 +100,11 @@ a {
 .button:active{
     transform: scale(0.98);
 }
+
+.button:hover{
+    color: rgb(101, 196, 175);
+}
+
 .from_container{
     position: absolute;
     max-width: 320px;
@@ -116,6 +121,7 @@ a {
     pointer-events: none;
     transition: all 0.4s ease-out;
 }
+
 .home.show .from_container{
     opacity: 1;
     pointer-events: auto;
